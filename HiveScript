@@ -1,0 +1,21 @@
+CREATE DATABASE IF NOT EXISTS mydatabase;
+
+CREATE TABLE mytable12(line string);
+
+
+load data local inpath '/HADOOP/hdfs/projects/COEN242/dataset' into TABLE mytable12;
+
+
+
+Select word from (Select word, dense_rank() over (order by count desc) as frequency from (Select word, count(*) as count from mytable12 lateral view explode(split(line, ' ')) out1 as word  group by word) out2 ) out3 where frequency <= 100;
+
+
+
+Select word from (Select word, dense_rank() over (order by count desc) as frequency from (Select word, count(*) as count from mytable12 lateral view explode(split(line, ' ')) out1 as word where length(word) > 6 group by word) out2 ) out3 where frequency <= 100;
+
+
+DROP table mytable12;
+
+DROP Database mydatabase;
+
+

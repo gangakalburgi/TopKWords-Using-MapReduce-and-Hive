@@ -1,0 +1,50 @@
+GroupName : BigData15
+password : ***********
+
+****************************************************************************************************************************
+to login to DC server :ssh bigdata15@linux.dc.engr.scu.edu and enter pwd.
+
+
+
+**************************************************************************************************************************
+
+Initial steps to be performed after every Login : 
+
+$setup cdh-5.12 
+$hadoop fs -ls ..
+
+*********************************************************************************************************************
+To create and set path, compile, create jar and run the program : 
+(here WordCount(1or2) means WordCoun1 or WordCount2 program)
+
+ 
+step 1:create in terminal : vi WordCount.java file and Write java program.
+
+
+step 2: export:   export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+
+step 3:compile:  hadoop com.sun.tools.javac.Main WordCount(1or2).java
+       complie with xlint: hadoop com.sun.tools.javac.Main -Xlint:unchecked  WordCount(1or2).java(compiling with xlint 				  helps to bypass warning messages)
+
+
+step 4: create jar: jar cf wc.jar WordCount(1or2)*.class
+
+step 5: run:     hadoop jar wc.jar WordCount(1or2) /projects/COEN242/dataset/BigData.txt output-file-name
+
+
+
+****************************************************************************************************************
+
+Linux command to get top 100 words: (just for information)
+hadoop fs -cat output1/part-r-00000 | sort -n -k2 -r | head -n100
+
+***********************************************************************************************************
+To view the output directory:  
+cd /HADOOP/hdfs/user/bigdata15
+
+
+
+
+***************************************************************************************************************
+
+
